@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CardVenda extends StatelessWidget {
-  final String documento;
-  final String nomeCliente;
-  final String valorTotal;
-  final String servico;
+class CardCliente extends StatelessWidget {
+  final String nome;
+  final String idade;
+  final String ufNascimento;
+  final String? email;
 
-  const CardVenda({
+  const CardCliente({
     Key? key,
-    required this.documento,
-    required this.nomeCliente,
-    required this.valorTotal,
-    required this.servico,
+    required this.nome,
+    required this.idade,
+    required this.ufNascimento,
+    this.email,
   }) : super(key: key);
 
   @override
@@ -29,19 +29,19 @@ class CardVenda extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Doc. $documento',
+                'Nome: $nome',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               Text(
-                'Cliente: $nomeCliente',
+                'Idade: $idade',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               Text(
-                'Serviço: $servico',
+                'UF Nascimento: $ufNascimento',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
               Text(
-                'Valor: $valorTotal',
+                'E-mail: $email',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ],

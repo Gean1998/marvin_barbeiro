@@ -14,9 +14,10 @@ class VendasView extends StatelessWidget {
       body: Column(
         children: [
           CardVenda(
-            titulo: 'titulo',
-            atendimentos: '2',
-            valorTotal: '60',
+            documento: '1',
+            nomeCliente: 'Gean',
+            valorTotal: '60.0',
+            servico: 'Corte de Cabelo',
           ),
         ],
       ),

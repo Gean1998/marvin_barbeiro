@@ -25,19 +25,16 @@ mixin _$ClientesStore on _ClientesStoreBase, Store {
     });
   }
 
-  late final _$_ClientesStoreBaseActionController =
-      ActionController(name: '_ClientesStoreBase', context: context);
+  late final _$mesclarClienteAsyncAction =
+      AsyncAction('_ClientesStoreBase.mesclarCliente', context: context);
 
   @override
-  void mesclarCliente(ClienteStore cliente) {
-    final _$actionInfo = _$_ClientesStoreBaseActionController.startAction(
-        name: '_ClientesStoreBase.mesclarCliente');
-    try {
-      return super.mesclarCliente(cliente);
-    } finally {
-      _$_ClientesStoreBaseActionController.endAction(_$actionInfo);
-    }
+  Future<dynamic> mesclarCliente(ClienteStore cliente) {
+    return _$mesclarClienteAsyncAction.run(() => super.mesclarCliente(cliente));
   }
+
+  late final _$_ClientesStoreBaseActionController =
+      ActionController(name: '_ClientesStoreBase', context: context);
 
   @override
   void remover(ClienteStore cliente) {

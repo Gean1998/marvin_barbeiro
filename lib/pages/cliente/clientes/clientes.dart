@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:marvin_barbeiro/pages/cliente/clientes/componentes/card_cliente.dart';
 import 'package:marvin_barbeiro/pages/cliente/novo_cliente/novo_cliente.dart';
+import 'package:marvin_barbeiro/pages/cliente/stores/clientes_store.dart';
 
 class ClientesView extends StatelessWidget {
   const ClientesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final store = GetIt.I<ClientesStore>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Clientes'),
@@ -21,15 +25,19 @@ class ClientesView extends StatelessWidget {
         },
         child: Icon(Icons.add),
       ),
-      body: Column(
-        children: [
-          CardCliente(
-            nome: 'Gean',
-            idade: '24',
-            ufNascimento: 'MT',
-            email: 'gean@hotmail.com',
-          ),
-        ],
+      body: Observer(
+        builder: ((context) => ListView.builder(
+              itemCount: store.clientes.length,
+              itemBuilder: ((context, index) {
+                final cliente = store.clientes.elementAt(index);
+                return CardCliente(
+                  nome: cliente.nome ?? '',
+                  idade: cliente.idade ?? '',
+                  ufNascimento: cliente.uf ?? '',
+                  email: cliente.email ?? '',
+                );
+              }),
+            )),
       ),
     );
   }

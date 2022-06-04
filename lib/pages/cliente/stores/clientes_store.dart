@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:marvin_barbeiro/core/data/local_storage.dart';
+import 'package:marvin_barbeiro/pages/cliente/model/cliente.dart';
 import 'package:marvin_barbeiro/pages/cliente/stores/cliente_store.dart';
 import 'package:mobx/mobx.dart';
 part 'clientes_store.g.dart';
@@ -31,7 +32,24 @@ abstract class _ClientesStoreBase with Store {
 
   Future salvarNoLocalStorage() async {
     final localStorage = LocalStorage();
-    final json = clientes.toList().map((e) => toClienteModel(e));
-    await localStorage.salvar('clientes', jsonEncode(json));
+    final listaClientes = clientes.toList().map((e) => e.toModel()).toList();
+    await localStorage.salvar('clientes', json.encode(listaClientes));
+  }
+
+  Future<ObservableList<ClienteStore>> carregarClientes() async {
+    clientes = ObservableList<ClienteStore>();
+
+    final localStorage = LocalStorage();
+    final listaClientesJson = await localStorage.ler('clientes');
+
+    if (listaClientesJson != null) {
+      List listaClientes = json.decode(listaClientesJson);
+
+      listaClientes.forEach((e) {
+        clientes.add(toClienteStore(ClienteModel.fromJson(e)));
+      });
+    }
+
+    return clientes;
   }
 }

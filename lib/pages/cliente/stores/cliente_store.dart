@@ -2,11 +2,11 @@ import 'package:marvin_barbeiro/pages/cliente/model/cliente.dart';
 import 'package:mobx/mobx.dart';
 part 'cliente_store.g.dart';
 
-ClienteModel toClienteModel(ClienteStore store) => ClienteModel(
+ClienteStore toClienteStore(ClienteModel store) => ClienteStore(
       nome: store.nome,
       idade: store.idade,
       email: store.email,
-      ufNascimento: store.uf,
+      uf: store.ufNascimento,
     );
 
 class ClienteStore = _ClienteStoreBase with _$ClienteStore;
@@ -30,4 +30,11 @@ abstract class _ClienteStoreBase with Store {
 
   @observable
   String? email;
+
+  toModel() => ClienteModel(
+        nome: nome,
+        idade: idade,
+        email: email,
+        ufNascimento: uf,
+      );
 }

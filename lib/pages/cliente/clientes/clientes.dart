@@ -25,19 +25,34 @@ class ClientesView extends StatelessWidget {
         },
         child: Icon(Icons.add),
       ),
-      body: Observer(
-        builder: ((context) => ListView.builder(
-              itemCount: store.clientes.length,
-              itemBuilder: ((context, index) {
-                final cliente = store.clientes.elementAt(index);
-                return CardCliente(
-                  nome: cliente.nome ?? '',
-                  idade: cliente.idade ?? '',
-                  ufNascimento: cliente.uf ?? '',
-                  email: cliente.email ?? '',
-                );
-              }),
-            )),
+      body: FutureBuilder(
+        future: store.carregarClientes(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            return Observer(
+              builder: ((context) => ListView.builder(
+                    itemCount: store.clientes.length,
+                    itemBuilder: ((context, index) {
+                      final cliente = store.clientes.elementAt(index);
+                      return CardCliente(
+                        nome: cliente.nome ?? '',
+                        idade: cliente.idade ?? '',
+                        ufNascimento: cliente.uf ?? '',
+                        email: cliente.email ?? '',
+                      );
+                    }),
+                  )),
+            );
+          } else if (snapshot.hasError) {
+            return Container(
+              child: Text('Erro: ${snapshot.error}'),
+            );
+          } else {
+            return Container(
+              child: Text('Carregando...'),
+            );
+          }
+        }),
       ),
     );
   }

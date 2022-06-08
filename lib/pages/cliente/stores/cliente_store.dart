@@ -2,11 +2,18 @@ import 'package:marvin_barbeiro/pages/cliente/model/cliente.dart';
 import 'package:mobx/mobx.dart';
 part 'cliente_store.g.dart';
 
-ClienteStore toClienteStore(ClienteModel store) => ClienteStore(
-      nome: store.nome,
-      idade: store.idade,
-      email: store.email,
-      uf: store.ufNascimento,
+// ClienteStore toClienteStore(ClienteModel store) => ClienteStore(
+//       nome: store.nome,
+//       idade: store.idade,
+//       email: store.email,
+//       uf: store.ufNascimento,
+//     );
+
+ClienteStore toClienteStore(ClienteModel model) => ClienteStore(
+      nome: model.nome,
+      idade: model.idade,
+      email: model.email,
+      uf: model.ufNascimento,
     );
 
 class ClienteStore = _ClienteStoreBase with _$ClienteStore;

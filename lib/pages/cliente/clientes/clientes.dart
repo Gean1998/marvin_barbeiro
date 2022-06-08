@@ -26,11 +26,12 @@ class ClientesView extends StatelessWidget {
         child: Icon(Icons.add),
       ),
       body: FutureBuilder(
-        future: store.carregarClientes(),
-        builder: ((context, snapshot) {
-          if (snapshot.hasData) {
-            return Observer(
-              builder: ((context) => ListView.builder(
+          future: store.carregarClientes(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Observer(
+                builder: ((context) {
+                  return ListView.builder(
                     itemCount: store.clientes.length,
                     itemBuilder: ((context, index) {
                       final cliente = store.clientes.elementAt(index);
@@ -41,19 +42,19 @@ class ClientesView extends StatelessWidget {
                         email: cliente.email ?? '',
                       );
                     }),
-                  )),
-            );
-          } else if (snapshot.hasError) {
-            return Container(
-              child: Text('Erro: ${snapshot.error}'),
-            );
-          } else {
-            return Container(
-              child: Text('Carregando...'),
-            );
-          }
-        }),
-      ),
+                  );
+                }),
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Ocorreu um erro: ${snapshot.error}'),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 }

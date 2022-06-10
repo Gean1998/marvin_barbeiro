@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marvin_barbeiro/pages/venda/nova_venda/nova_venda.dart';
 import 'package:marvin_barbeiro/pages/venda/vendas/componentes/card_venda.dart';
 
 class VendasView extends StatelessWidget {
@@ -10,6 +11,13 @@ class VendasView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Vendas'),
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (_) => NovaVendaView()));
+        },
+        child: Icon(Icons.add),
       ),
       body: Column(
         children: [

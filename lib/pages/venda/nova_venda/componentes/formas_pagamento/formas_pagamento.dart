@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../nova_venda_store.dart';
+
 class FormasPagamento extends StatelessWidget {
-  const FormasPagamento({Key? key}) : super(key: key);
+  final NovaVendaStore store;
+
+  const FormasPagamento({Key? key, required this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +28,10 @@ class FormasPagamento extends StatelessWidget {
               value: 'Cartão Débito',
             ),
           ],
-          value: 'Dinheiro',
-          onChanged: (value) {},
+          value: store.formaPagamento,
+          onChanged: (String? value) {
+            store.formaPagamento = value!;
+          },
         ),
       ],
     );

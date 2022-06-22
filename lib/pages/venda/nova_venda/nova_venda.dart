@@ -5,6 +5,8 @@ import 'package:marvin_barbeiro/pages/venda/nova_venda/componentes/formas_pagame
 import 'package:marvin_barbeiro/pages/venda/nova_venda/componentes/servicos/servicos.dart';
 import 'package:marvin_barbeiro/pages/venda/nova_venda/nova_venda_store.dart';
 
+import 'componentes/clientes/cliente_venda.dart';
+
 class NovaVendaView extends StatelessWidget {
   const NovaVendaView({Key? key}) : super(key: key);
 
@@ -27,9 +29,7 @@ class NovaVendaView extends StatelessWidget {
                   builder: (_) {
                     return Expanded(
                       child: TextFormField(
-                        initialValue: store.cliente!.nome,
-                        onChanged: (String? value) =>
-                            store.cliente!.nome = value,
+                        controller: store.controllerCliente,
                         decoration: InputDecoration(
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -44,7 +44,14 @@ class NovaVendaView extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ClienteVenda(novaVendaStore: store),
+                      ),
+                    );
+                  },
                   icon: Icon(Icons.people),
                 ),
               ],
@@ -65,7 +72,21 @@ class NovaVendaView extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              if (store.servico == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('É necessário selecionar o serviço!'),
+                    duration: Duration(milliseconds: 3000),
+                  ),
+                );
+
+                return;
+              }
+
+              store.salvar();
+              Navigator.of(context).pop();
+            },
             child: const Text('Finalizar Venda'),
           ),
         ],

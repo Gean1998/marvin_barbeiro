@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
 import 'package:marvin_barbeiro/pages/cliente/clientes/clientes.dart';
 import 'package:marvin_barbeiro/pages/home/componentes/card_resumo_vendas.dart';
 import 'package:marvin_barbeiro/pages/venda/vendas/vendas.dart';
+import 'package:marvin_barbeiro/pages/venda/vendas/vendas_store.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final vendasStore = GetIt.I<VendasStore>();
     return Scaffold(
       appBar: AppBar(
         title: Text('Marvin Barbeiro'),
         centerTitle: true,
       ),
       body: Column(
-        children: const [
-          CardResumoVendas(
-            titulo: 'Dia',
-            atendimentos: '2',
-            valorTotal: '60',
+        children: [
+          Observer(
+            builder: (_) {
+              return CardResumoVendas(
+                titulo: 'Dia',
+                atendimentos: '2',
+                valorTotal: vendasStore.vendasDiaValor,
+              );
+            },
           ),
           CardResumoVendas(
             titulo: 'Mês',

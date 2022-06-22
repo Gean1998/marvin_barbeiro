@@ -9,6 +9,28 @@ part of 'vendas_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$VendasStore on _VendasStoreBase, Store {
+  Computed<String>? _$vendasDiaValorComputed;
+
+  @override
+  String get vendasDiaValor =>
+      (_$vendasDiaValorComputed ??= Computed<String>(() => super.vendasDiaValor,
+              name: '_VendasStoreBase.vendasDiaValor'))
+          .value;
+  Computed<String>? _$vendasMesValorComputed;
+
+  @override
+  String get vendasMesValor =>
+      (_$vendasMesValorComputed ??= Computed<String>(() => super.vendasMesValor,
+              name: '_VendasStoreBase.vendasMesValor'))
+          .value;
+  Computed<String>? _$vendasAnoValorComputed;
+
+  @override
+  String get vendasAnoValor =>
+      (_$vendasAnoValorComputed ??= Computed<String>(() => super.vendasAnoValor,
+              name: '_VendasStoreBase.vendasAnoValor'))
+          .value;
+
   late final _$vendasAtom =
       Atom(name: '_VendasStoreBase.vendas', context: context);
 
@@ -42,7 +64,10 @@ mixin _$VendasStore on _VendasStoreBase, Store {
   @override
   String toString() {
     return '''
-vendas: ${vendas}
+vendas: ${vendas},
+vendasDiaValor: ${vendasDiaValor},
+vendasMesValor: ${vendasMesValor},
+vendasAnoValor: ${vendasAnoValor}
     ''';
   }
 }

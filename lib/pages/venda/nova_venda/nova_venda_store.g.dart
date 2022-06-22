@@ -9,6 +9,22 @@ part of 'nova_venda_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$NovaVendaStore on _NovaVendaStoreBase, Store {
+  late final _$controllerClienteAtom =
+      Atom(name: '_NovaVendaStoreBase.controllerCliente', context: context);
+
+  @override
+  TextEditingController get controllerCliente {
+    _$controllerClienteAtom.reportRead();
+    return super.controllerCliente;
+  }
+
+  @override
+  set controllerCliente(TextEditingController value) {
+    _$controllerClienteAtom.reportWrite(value, super.controllerCliente, () {
+      super.controllerCliente = value;
+    });
+  }
+
   late final _$clienteAtom =
       Atom(name: '_NovaVendaStoreBase.cliente', context: context);
 
@@ -88,6 +104,17 @@ mixin _$NovaVendaStore on _NovaVendaStoreBase, Store {
   }
 
   @override
+  void definirNome(String novoNome) {
+    final _$actionInfo = _$_NovaVendaStoreBaseActionController.startAction(
+        name: '_NovaVendaStoreBase.definirNome');
+    try {
+      return super.definirNome(novoNome);
+    } finally {
+      _$_NovaVendaStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void definirClienteConsumidor() {
     final _$actionInfo = _$_NovaVendaStoreBaseActionController.startAction(
         name: '_NovaVendaStoreBase.definirClienteConsumidor');
@@ -112,6 +139,7 @@ mixin _$NovaVendaStore on _NovaVendaStoreBase, Store {
   @override
   String toString() {
     return '''
+controllerCliente: ${controllerCliente},
 cliente: ${cliente},
 formaPagamento: ${formaPagamento},
 servico: ${servico},

@@ -30,6 +30,13 @@ mixin _$VendasStore on _VendasStoreBase, Store {
       (_$vendasAnoValorComputed ??= Computed<String>(() => super.vendasAnoValor,
               name: '_VendasStoreBase.vendasAnoValor'))
           .value;
+  Computed<String>? _$vendasAnoQuantidadeComputed;
+
+  @override
+  String get vendasAnoQuantidade => (_$vendasAnoQuantidadeComputed ??=
+          Computed<String>(() => super.vendasAnoQuantidade,
+              name: '_VendasStoreBase.vendasAnoQuantidade'))
+      .value;
 
   late final _$vendasAtom =
       Atom(name: '_VendasStoreBase.vendas', context: context);
@@ -67,7 +74,8 @@ mixin _$VendasStore on _VendasStoreBase, Store {
 vendas: ${vendas},
 vendasDiaValor: ${vendasDiaValor},
 vendasMesValor: ${vendasMesValor},
-vendasAnoValor: ${vendasAnoValor}
+vendasAnoValor: ${vendasAnoValor},
+vendasAnoQuantidade: ${vendasAnoQuantidade}
     ''';
   }
 }

@@ -60,4 +60,18 @@ abstract class _VendasStoreBase with Store {
 
     return valor.toString();
   }
+
+  @computed
+  String get vendasAnoQuantidade {
+    var dataHoje = DateTime.now();
+    var quantidade = 0.0;
+
+    for (var venda in vendas) {
+      if (venda.data!.year == dataHoje.year) {
+        quantidade++;
+      }
+    }
+
+    return quantidade.toString();
+  }
 }

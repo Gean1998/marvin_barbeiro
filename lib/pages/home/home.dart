@@ -12,6 +12,12 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vendasStore = GetIt.I<VendasStore>();
+    String meuTexto = '  ';
+
+    if (meuTexto.trim().isEmpty) {
+      print('');
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Marvin Barbeiro'),
@@ -23,7 +29,7 @@ class HomeView extends StatelessWidget {
             builder: (_) {
               return CardResumoVendas(
                 titulo: 'Dia',
-                atendimentos: '2',
+                atendimentos: '',
                 valorTotal: vendasStore.vendasDiaValor,
               );
             },
@@ -33,10 +39,14 @@ class HomeView extends StatelessWidget {
             atendimentos: '2',
             valorTotal: '60',
           ),
-          CardResumoVendas(
-            titulo: 'Ano',
-            atendimentos: '2',
-            valorTotal: '60',
+          Observer(
+            builder: (_) {
+              return CardResumoVendas(
+                titulo: 'Ano',
+                atendimentos: vendasStore.vendasAnoQuantidade,
+                valorTotal: '60',
+              );
+            },
           ),
         ],
       ),
